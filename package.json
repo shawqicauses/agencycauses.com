@@ -1,8 +1,8 @@
 {
-  "reviewed": "true",
+  "reviewed": "true 1️⃣",
   "version": "1.0.0",
-  "name": "shawqicauses-starter-template-next",
-  "description": "A starter template for Next.JS projects includes every package that I need/use to build them. Developed by @shawqicauses.",
+  "name": "agencycauses.com",
+  "description": "A SaaS (Software as a Service) web application for agencies to cover dashboard functionalities, project management, and website building (website builder). Built using Next.JS, TypeScript, and Tailwind CSS. Developed by @shawqicauses.",
   "author": "shawqicauses <shawqicauses@outlook.com>",
   "license": "ISC",
   "private": true,
