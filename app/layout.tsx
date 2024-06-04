@@ -1,20 +1,16 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
-import {ClerkProvider} from "@clerk/nextjs"
-import {dark} from "@clerk/themes"
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
 import {PropsWithChildren} from "react"
 import "../styles/global.css"
 import Providers from "./providers"
 
 const Layout = function Layout({children}: PropsWithChildren) {
   return (
-    <ClerkProvider appearance={{baseTheme: dark}}>
-      <html lang="en">
-        <head />
-        <body>
-          <Providers>{children}</Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <head />
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   )
 }
 
