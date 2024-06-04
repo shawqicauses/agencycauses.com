@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 3️⃣
+// DONE REVIEWING: GITHUB COMMIT 4️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -23,8 +23,9 @@ model User {
   email      String @unique
   role       Role   @default(SUB_ACCOUNT_USER)
 
-  agency_id String
-  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  agency_id   String
+  agency      Agency       @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  permissions Permission[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -72,12 +73,28 @@ model SubAccount {
   zip_code String
   address  String
 
-  goal      Int    @default(5)
-  agency_id String
-  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  goal        Int          @default(5)
+  agency_id   String
+  agency      Agency       @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  permissions Permission[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@index([agency_id])
+}
+
+model Permission {
+  id String @id @default(uuid())
+
+  email String
+  user  User   @relation(fields: [email], references: [email], onDelete: Cascade)
+
+  sub_account_id String
+  sub_account    SubAccount @relation(fields: [sub_account_id], references: [id], onDelete: Cascade)
+
+  access Boolean
+
+  @@index([email])
+  @@index([sub_account_id])
 }
