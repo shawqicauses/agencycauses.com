@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,4 +7,21 @@ datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
+}
+
+enum Role {
+  AGENCY_OWNER
+  AGENCY_ADMIN
+  SUB_ACCOUNT_USER
+  SUB_ACCOUNT_GUEST
+}
+
+model User {
+  id         String   @id @default(uuid())
+  avatar_url String   @db.Text
+  name       String
+  email      String   @unique
+  role       Role     @default(SUB_ACCOUNT_USER)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
