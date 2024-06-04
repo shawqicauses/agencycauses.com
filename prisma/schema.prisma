@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 4️⃣
+// DONE REVIEWING: GITHUB COMMIT 5️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +14,10 @@ enum Role {
   AGENCY_ADMIN
   SUB_ACCOUNT_USER
   SUB_ACCOUNT_GUEST
+}
+
+enum Icon {
+  CATEGORY
 }
 
 model User {
@@ -49,10 +53,12 @@ model Agency {
   zip_code String
   address  String
 
-  goal         Int          @default(5)
-  with_label   Boolean      @default(true)
-  users        User[]
-  sub_accounts SubAccount[]
+  goal       Int     @default(5)
+  with_label Boolean @default(true)
+
+  users           User[]
+  sub_accounts    SubAccount[]
+  sidebar_options AgencySidebarOption[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -97,4 +103,19 @@ model Permission {
 
   @@index([email])
   @@index([sub_account_id])
+}
+
+model AgencySidebarOption {
+  id   String @id @default(uuid())
+  icon Icon   @default(CATEGORY)
+  name String @default("Menu")
+  link String @default("/agency")
+
+  agency_id String
+  agency    Agency? @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([agency_id])
 }
