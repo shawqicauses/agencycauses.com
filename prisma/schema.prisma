@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 5️⃣
+// DONE REVIEWING: GITHUB COMMIT 6️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -79,10 +79,11 @@ model SubAccount {
   zip_code String
   address  String
 
-  goal        Int          @default(5)
-  agency_id   String
-  agency      Agency       @relation(fields: [agency_id], references: [id], onDelete: Cascade)
-  permissions Permission[]
+  goal            Int                       @default(5)
+  agency_id       String
+  agency          Agency                    @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  permissions     Permission[]
+  sidebar_options SubAccountSidebarOption[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -118,4 +119,19 @@ model AgencySidebarOption {
   updated_at DateTime @updatedAt
 
   @@index([agency_id])
+}
+
+model SubAccountSidebarOption {
+  id   String @id @default(uuid())
+  icon Icon   @default(CATEGORY)
+  name String @default("Menu")
+  link String @default("/sub-account")
+
+  sub_account_id String
+  sub_account    SubAccount? @relation(fields: [sub_account_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([sub_account_id])
 }
