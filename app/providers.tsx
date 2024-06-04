@@ -1,11 +1,12 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query"
 import {httpBatchLink} from "@trpc/client"
 import {PropsWithChildren, useState} from "react"
 import trpc from "../client"
+import ThemeProvider from "./providers/theme-provider"
 
 const createQueryClient = function createQueryClient() {
   return new QueryClient({
@@ -39,7 +40,9 @@ const Providers = function Providers({children}: PropsWithChildren) {
 
   return (
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>{children}</ThemeProvider>
+      </QueryClientProvider>
     </trpc.Provider>
   )
 }
