@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 7️⃣
+// DONE REVIEWING: GITHUB COMMIT 8️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -33,9 +33,10 @@ model User {
   email      String @unique
   role       Role   @default(SUB_ACCOUNT_USER)
 
-  agency_id   String
-  agency      Agency       @relation(fields: [agency_id], references: [id], onDelete: Cascade)
-  permissions Permission[]
+  agency_id     String
+  agency        Agency         @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  permissions   Permission[]
+  notifications Notification[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -65,6 +66,7 @@ model Agency {
   users           User[]
   sub_accounts    SubAccount[]
   invitations     Invitation[]
+  notifications   Notification[]
   sidebar_options AgencySidebarOption[]
 
   created_at DateTime @default(now())
@@ -90,6 +92,7 @@ model SubAccount {
   agency_id       String
   agency          Agency                    @relation(fields: [agency_id], references: [id], onDelete: Cascade)
   permissions     Permission[]
+  notifications   Notification[]
   sidebar_options SubAccountSidebarOption[]
 
   created_at DateTime @default(now())
@@ -153,4 +156,25 @@ model Invitation {
   agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
 
   @@index([agency_id])
+}
+
+model Notification {
+  id           String @id @default(uuid())
+  notification String
+
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  agency_id String
+  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+
+  sub_account_id String?
+  sub_account    SubAccount? @relation(fields: [sub_account_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([user_id])
+  @@index([agency_id])
+  @@index([sub_account_id])
 }
