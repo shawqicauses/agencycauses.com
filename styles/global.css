@@ -1,4 +1,4 @@
-/* DONE REVIEWING: GITHUB COMMIT */
+/* DONE REVIEWING: GITHUB COMMIT 1️⃣ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -47,6 +47,19 @@
     --primary-hover: theme(colors.red.500);
     --secondary: theme(colors.indigo.400);
     --secondary-hover: theme(colors.indigo.500);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100vh;
   }
 }
 

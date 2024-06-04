@@ -1,10 +1,11 @@
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 import typographyPlugin from "@tailwindcss/typography"
 import {type Config} from "tailwindcss"
 import tailwindCSSAnimate from "tailwindcss-animate"
+import {withUt} from "uploadthing/tw"
 import typographyStyles from "./styles/typography"
 
-export default {
+export default withUt({
   darkMode: ["class"],
   content: [
     "./app/**/*.{ts,tsx,js,jsx}",
@@ -239,4 +240,4 @@ export default {
     typography: typographyStyles
   },
   plugins: [typographyPlugin, tailwindCSSAnimate]
-} satisfies Config
+} satisfies Config)
