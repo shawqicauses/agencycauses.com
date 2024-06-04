@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 2️⃣
+// DONE REVIEWING: GITHUB COMMIT 3️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -48,10 +48,36 @@ model Agency {
   zip_code String
   address  String
 
-  goal       Int     @default(5)
-  with_label Boolean @default(true)
-  users      User[]
+  goal         Int          @default(5)
+  with_label   Boolean      @default(true)
+  users        User[]
+  sub_accounts SubAccount[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model SubAccount {
+  id                   String  @id @default(uuid())
+  connected_account_id String? @default("") // Strip
+
+  logo_url String @db.Text
+  name     String
+  email    String @db.Text
+  phone    String
+
+  country  String
+  state    String
+  city     String
+  zip_code String
+  address  String
+
+  goal      Int    @default(5)
+  agency_id String
+  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([agency_id])
 }
