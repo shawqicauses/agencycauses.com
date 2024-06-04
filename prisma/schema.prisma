@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 6️⃣
+// DONE REVIEWING: GITHUB COMMIT 7️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +14,12 @@ enum Role {
   AGENCY_ADMIN
   SUB_ACCOUNT_USER
   SUB_ACCOUNT_GUEST
+}
+
+enum INVITATION_STATUS {
+  ACCEPTED
+  REVOKED
+  PENDING
 }
 
 enum Icon {
@@ -58,6 +64,7 @@ model Agency {
 
   users           User[]
   sub_accounts    SubAccount[]
+  invitations     Invitation[]
   sidebar_options AgencySidebarOption[]
 
   created_at DateTime @default(now())
@@ -134,4 +141,16 @@ model SubAccountSidebarOption {
   updated_at DateTime @updatedAt
 
   @@index([sub_account_id])
+}
+
+model Invitation {
+  id     String            @id @default(uuid())
+  email  String            @unique
+  role   Role              @default(SUB_ACCOUNT_USER)
+  status INVITATION_STATUS @default(PENDING)
+
+  agency_id String
+  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+
+  @@index([agency_id])
 }
