@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,11 +17,41 @@ enum Role {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  avatar_url String   @db.Text
+  id         String @id @default(uuid())
+  avatar_url String @db.Text
   name       String
-  email      String   @unique
-  role       Role     @default(SUB_ACCOUNT_USER)
+  email      String @unique
+  role       Role   @default(SUB_ACCOUNT_USER)
+
+  agency_id String
+  agency    Agency @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@index([agency_id])
+}
+
+model Agency {
+  id                   String  @id @default(uuid())
+  customer_id          String  @default("") // Subscription
+  connected_account_id String? @default("") // Strip
+
+  logo_url String @db.Text
+  name     String
+  email    String @db.Text
+  phone    String
+
+  country  String
+  state    String
+  city     String
+  zip_code String
+  address  String
+
+  goal       Int     @default(5)
+  with_label Boolean @default(true)
+  users      User[]
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
