@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 2️⃣
+// DONE REVIEWING: GITHUB COMMIT 3️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -8,6 +8,7 @@ import {useRouter} from "next/navigation"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {z} from "zod"
+import FileUploader from "../global/file-uploader"
 import {
   AlertDialog,
   Card,
@@ -86,7 +87,9 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                 render={({field}) => (
                   <FormItem>
                     <FormLabel>Agency Logo</FormLabel>
-                    <FormControl>{/* File Uploader */}</FormControl>
+                    <FormControl>
+                      <FileUploader />
+                    </FormControl>
                   </FormItem>
                 )}
               />
