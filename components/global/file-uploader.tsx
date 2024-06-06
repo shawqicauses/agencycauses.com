@@ -1,8 +1,10 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
 import {FileIcon, X} from "lucide-react"
 import Image from "next/image"
+import {UploadDropzone} from "../../lib/uploadthing"
 import {Button} from "../ui"
 
+/* eslint no-unused-vars: "off" */
 type FileUploaderProps = {
   resource: "avatar" | "agencyLogo" | "subAccountLogo"
   value?: string
@@ -19,7 +21,7 @@ const FileUploader = function FileUploader({resource, value, onChange}: FileUplo
             <Image src={value} alt="File Uploader Image" fill className="object-contain" />
           </div>
         ) : (
-          <div className="bg-background/10 relative mt-2 flex items-center rounded-md p-2">
+          <div className="relative mt-2 flex items-center rounded-md bg-background p-2">
             <FileIcon />
             <a
               href={value}
@@ -37,7 +39,17 @@ const FileUploader = function FileUploader({resource, value, onChange}: FileUplo
       </div>
     )
 
-  return <div className="bg-muted/30 w-full" />
+  return (
+    <div className="w-full rounded-md bg-background">
+      <UploadDropzone
+        endpoint={resource}
+        onClientUploadComplete={(response) => onChange(response?.[0].url)}
+        onUploadError={(error) => {
+          throw new Error(error.message)
+        }}
+      />
+    </div>
+  )
 }
 
 export default FileUploader

@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 3️⃣
+// DONE REVIEWING: GITHUB COMMIT 4️⃣
 
 import {currentUser} from "@clerk/nextjs/server"
 import {redirect} from "next/navigation"
@@ -44,7 +44,7 @@ const Page = async function Page({
   return (
     <div className="mt-4 flex items-center justify-center">
       <div className="max-w-[53.125rem] rounded-xl border border-border p-4">
-        <h1>Create an Agency</h1>
+        <h1 className="mb-3">Create an Agency</h1>
         <AgencyCreate data={{email: userAuthenticated?.emailAddresses[0].emailAddress}} />
       </div>
     </div>
