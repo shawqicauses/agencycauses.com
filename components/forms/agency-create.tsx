@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -8,7 +8,19 @@ import {useRouter} from "next/navigation"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {z} from "zod"
-import {AlertDialog, Card, CardContent, CardDescription, CardHeader, CardTitle, Form} from "../ui"
+import {
+  AlertDialog,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel
+} from "../ui"
 
 type AgencyCreateProps = {
   data?: Partial<Agency>
@@ -47,6 +59,9 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
     }
   })
 
+  const isLoading = form.formState.isSubmitting
+  const handleSubmit = async function handleSubmit() {}
+
   useEffect(() => {
     if (data) form.reset(data)
   }, [data, form])
@@ -63,7 +78,19 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form>Agency Create Form</form>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+              <FormField
+                name="logo_url"
+                control={form.control}
+                disabled={isLoading}
+                render={({field}) => (
+                  <FormItem>
+                    <FormLabel>Agency Logo</FormLabel>
+                    <FormControl>{/* File Uploader */}</FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
           </Form>
         </CardContent>
       </Card>
