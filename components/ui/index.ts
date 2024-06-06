@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
 export {default as AlertDialog} from "./alert-dialog"
 export {default as AlertDialogAction} from "./alert-dialog/alert-dialog-action"
 export {default as AlertDialogCancel} from "./alert-dialog/alert-dialog-cancel"
@@ -9,6 +9,12 @@ export {default as AlertDialogHeader} from "./alert-dialog/alert-dialog-header"
 export {default as AlertDialogOverlay} from "./alert-dialog/alert-dialog-overlay"
 export {default as AlertDialogTitle} from "./alert-dialog/alert-dialog-title"
 export {default as Button} from "./button"
+export {default as Card} from "./card"
+export {default as CardContent} from "./card/card-content"
+export {default as CardDescription} from "./card/card-description"
+export {default as CardFooter} from "./card/card-footer"
+export {default as CardHeader} from "./card/card-header"
+export {default as CardTitle} from "./card/card-title"
 export {default as Form} from "./form"
 export {default as FormControl} from "./form/form-control"
 export {default as FormDescription} from "./form/form-description"
