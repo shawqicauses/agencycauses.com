@@ -1,10 +1,10 @@
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 import {FileIcon, X} from "lucide-react"
 import Image from "next/image"
 import {Button} from "../ui"
 
 type FileUploaderProps = {
-  resource: "avatar_url" | "logo_url"
+  resource: "avatar" | "agencyLogo" | "subAccountLogo"
   value?: string
   onChange: (url?: string) => void
 }
