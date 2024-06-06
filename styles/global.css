@@ -1,4 +1,4 @@
-/* DONE REVIEWING: GITHUB COMMIT 2️⃣ */
+/* DONE REVIEWING: GITHUB COMMIT 3️⃣ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,7 +39,7 @@
 
   :root[data-theme="dark"] {
     --background: theme(colors.zinc.950);
-    --background-layer-2: theme(colors.black);
+    --background-layer-2: theme(colors.zinc.900);
     --foreground: theme(colors.white);
     --border-light: theme(colors.zinc.900);
     --border: theme(colors.zinc.800);
@@ -55,6 +55,7 @@
   *::before,
   *::after {
     box-sizing: border-box;
+    @apply border-border;
   }
 
   html,
