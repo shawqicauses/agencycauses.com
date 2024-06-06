@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 
 import {HTMLAttributes, forwardRef} from "react"
 import {cn} from "../../../lib/utils"
@@ -14,3 +14,4 @@ const Card = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
 )
 
 Card.displayName = "Card"
+export default Card
