@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 3️⃣
+// DONE REVIEWING: GITHUB COMMIT 4️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -88,7 +88,11 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                   <FormItem>
                     <FormLabel>Agency Logo</FormLabel>
                     <FormControl>
-                      <FileUploader />
+                      <FileUploader
+                        resource="agencyLogo"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
