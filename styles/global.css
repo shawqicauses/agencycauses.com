@@ -1,4 +1,4 @@
-/* DONE REVIEWING: GITHUB COMMIT 1️⃣ */
+/* DONE REVIEWING: GITHUB COMMIT 2️⃣ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,7 +37,7 @@
     --popover: var(--foreground);
   }
 
-  .dark {
+  :root[data-theme="dark"] {
     --background: theme(colors.zinc.950);
     --background-layer-2: theme(colors.black);
     --foreground: theme(colors.white);

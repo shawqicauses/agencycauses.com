@@ -1,7 +1,8 @@
-// DONE REVIEWING: GITHUB COMMIT 2️⃣
+// DONE REVIEWING: GITHUB COMMIT 3️⃣
 
 import {currentUser} from "@clerk/nextjs/server"
 import {redirect} from "next/navigation"
+import AgencyCreate from "../../../components/forms/agency-create"
 import {getUser, verifyAcceptInvitation} from "../../../lib/queries"
 
 const Page = async function Page({
@@ -42,9 +43,9 @@ const Page = async function Page({
   const userAuthenticated = await currentUser()
   return (
     <div className="mt-4 flex items-center justify-center">
-      <div className="max-w-[53.125rem] rounded-xl border p-4">
+      <div className="max-w-[53.125rem] rounded-xl border border-border p-4">
         <h1>Create an Agency</h1>
-        {/* Create Agency Form */}
+        <AgencyCreate data={{email: userAuthenticated?.emailAddresses[0].emailAddress}} />
       </div>
     </div>
   )
