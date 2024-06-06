@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 4️⃣
+// DONE REVIEWING: GITHUB COMMIT 5️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -20,7 +20,9 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel
+  FormLabel,
+  FormMessage,
+  Input
 } from "../ui"
 
 type AgencyCreateProps = {
@@ -85,8 +87,8 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                 control={form.control}
                 disabled={isLoading}
                 render={({field}) => (
-                  <FormItem>
-                    <FormLabel>Agency Logo</FormLabel>
+                  <FormItem className="flex-1">
+                    <FormLabel>Logo</FormLabel>
                     <FormControl>
                       <FileUploader
                         resource="agencyLogo"
@@ -94,9 +96,56 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                         onChange={field.onChange}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
+              <div className="flex flex-col gap-4 md:flex-row">
+                <FormField
+                  name="name"
+                  control={form.control}
+                  disabled={isLoading}
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency name" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="email"
+                  control={form.control}
+                  disabled
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency email" {...field} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="flex flex-col gap-4 md:flex-row">
+                <FormField
+                  name="phone"
+                  control={form.control}
+                  disabled={isLoading}
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Phone Number</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency phone number" {...field} readOnly />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
             </form>
           </Form>
         </CardContent>
