@@ -1,6 +1,6 @@
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 import {auth} from "@clerk/nextjs/server"
-import {createUploadthing, type FileRouter as FileRouterType} from "uploadthing/next"
+import {createUploadthing, type FileRouter as UploadthingFileRouter} from "uploadthing/next"
 
 const uploadthing = createUploadthing()
 
@@ -14,11 +14,11 @@ const uploadthingBase = uploadthing({image: {maxFileSize: "4MB", maxFileCount: 1
   .middleware(userAuthenticated)
   .onUploadComplete(() => {})
 
-const FileRouter = {
+export const FileRouter = {
   avatar: uploadthingBase,
   agencyLogo: uploadthingBase,
   subAccountLogo: uploadthingBase,
   media: uploadthingBase
-} satisfies FileRouterType
+} satisfies UploadthingFileRouter
 
-export default FileRouter
+export type FileRouterType = typeof FileRouter
