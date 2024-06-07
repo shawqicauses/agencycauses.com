@@ -1,5 +1,5 @@
 {
-  "reviewed": "true 7️⃣",
+  "reviewed": "true 8️⃣",
   "version": "1.0.0",
   "name": "agencycauses.com",
   "description": "A SaaS (Software as a Service) web application for agencies to cover dashboard functionalities, project management, and website building (website builder). Built using Next.JS, TypeScript, and Tailwind CSS. Developed by @shawqicauses.",
@@ -20,6 +20,7 @@
     "@radix-ui/react-alert-dialog": "1.0.5",
     "@radix-ui/react-label": "2.0.2",
     "@radix-ui/react-slot": "1.0.2",
+    "@radix-ui/react-switch": "1.0.3",
     "@tailwindcss/typography": "0.5.13",
     "@tanstack/react-query": "5.37.1",
     "@trpc/client": "11.0.0-rc.374",
