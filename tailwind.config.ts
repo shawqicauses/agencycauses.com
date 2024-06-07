@@ -1,7 +1,10 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣
+// DONE REVIEWING: GITHUB COMMIT 2️⃣
+import headlessUI from "@headlessui/tailwindcss"
+import tailwindCSSForms from "@tailwindcss/forms"
 import typographyPlugin from "@tailwindcss/typography"
 import {type Config} from "tailwindcss"
 import tailwindCSSAnimate from "tailwindcss-animate"
+import colors from "tailwindcss/colors"
 import {withUt} from "uploadthing/tw"
 import typographyStyles from "./styles/typography"
 
@@ -12,7 +15,8 @@ export default withUt({
     "./pages/**/*.{ts,tsx,js,jsx}",
     "./examples/**/*.{ts,tsx,js,jsx}",
     "./components/**/*.{ts,tsx,js,jsx}",
-    "./lib/**/*.{ts,tsx,js,jsx}"
+    "./lib/**/*.{ts,tsx,js,jsx}",
+    "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     container: {
@@ -27,6 +31,56 @@ export default withUt({
     },
     extend: {
       colors: {
+        "tremor": {
+          brand: {
+            faint: colors.blue[50],
+            muted: colors.blue[200],
+            subtle: colors.blue[400],
+            DEFAULT: colors.blue[500],
+            emphasis: colors.blue[700],
+            inverted: colors.white
+          },
+          background: {
+            muted: colors.gray[50],
+            subtle: colors.gray[100],
+            DEFAULT: colors.white,
+            emphasis: colors.gray[700]
+          },
+          border: {DEFAULT: colors.gray[200]},
+          ring: {DEFAULT: colors.gray[200]},
+          content: {
+            subtle: colors.gray[400],
+            DEFAULT: colors.gray[500],
+            emphasis: colors.gray[700],
+            strong: colors.gray[900],
+            inverted: colors.white
+          }
+        },
+        "dark-termor": {
+          brand: {
+            faint: "#0B1229",
+            muted: colors.blue[950],
+            subtle: colors.blue[800],
+            DEFAULT: colors.blue[500],
+            emphasis: colors.blue[400],
+            inverted: colors.blue[950]
+          },
+          background: {
+            muted: "#131A2B",
+            subtle: colors.gray[800],
+            DEFAULT: colors.gray[900],
+            emphasis: colors.gray[300]
+          },
+          border: {DEFAULT: colors.gray[800]},
+          ring: {DEFAULT: colors.gray[800]},
+          content: {
+            subtle: colors.gray[600],
+            DEFAULT: colors.gray[500],
+            emphasis: colors.gray[200],
+            strong: colors.gray[50],
+            inverted: colors.gray[950]
+          }
+        },
         "background": "var(--background)",
         "background-layer-2": "var(--background-layer-2)",
         "foreground": "var(--foreground)",
@@ -142,7 +196,11 @@ export default withUt({
       "xl-6": ["3.75rem", "1"],
       "xl-7": ["4.5rem", "1"],
       "xl-8": ["6rem", "1"],
-      "xl-9": ["8rem", "1"]
+      "xl-9": ["8rem", "1"],
+      "tremor-label": ["0.75rem", "1rem"],
+      "tremor-default": ["0.875rem", "1.25rem"],
+      "tremor-title": ["1.125rem", "1.75rem"],
+      "tremor-metric": ["1.875rem", "2.25rem"]
     },
     fontWeight: {
       "thin": "100",
@@ -164,7 +222,10 @@ export default withUt({
       "xl": "0.75rem",
       "xl-2": "1rem",
       "xl-3": "1.5rem",
-      "full": "625rem"
+      "full": "625rem",
+      "tremor-small": "0.375rem",
+      "tremor-default": "0.5rem",
+      "tremor-full": "625rem"
     },
     columns: {
       "1": "1",
@@ -203,7 +264,17 @@ export default withUt({
       "xl": "0 1.25rem 1.5rem -0.25rem rgb(0 0 0 / 0.1), 0 0.5rem 0.625rem -0.375rem rgb(0 0 0 / 0.1)",
       "xl-2": "0 1.5rem 3.125rem -0.75rem rgb(0 0 0 / 0.25)",
       "inner": "inset 0 0.125rem 0.25rem 0 rgb(0 0 0 / 0.05)",
-      "none": "0 0 black"
+      "none": "0 0 black",
+      "tremor-input": "0 0.0625rem 0.125rem 0 rgb(0 0 0 / 0.05)",
+      "tremor-card":
+        "0 0.0625rem 0.1875rem 0 rgb(0 0 0 / 0.1), 0 0.0625rem 0.125rem -0.0625rem rgb(0 0 0 / 0.1)",
+      "tremor-dropdown":
+        "0 0.25rem 0.375rem -0.0625rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1)",
+      "dark-tremor-input": "0 0.0625rem 0.125rem 0 rgb(0 0 0 / 0.05)",
+      "dark-tremor-card":
+        "0 0.0625rem 0.1875rem 0 rgb(0 0 0 / 0.1), 0 0.0625rem 0.125rem -0.0625rem rgb(0 0 0 / 0.1)",
+      "dark-tremor-dropdown":
+        "0 0.25rem 0.375rem -0.0625rem rgb(0 0 0 / 0.1), 0 0.125rem 0.25rem -0.125rem rgb(0 0 0 / 0.1)"
     },
     dropShadow: {
       "sm": "0 0.0625rem 0.0625rem rgb(0 0 0 / 0.05)",
@@ -239,5 +310,34 @@ export default withUt({
     },
     typography: typographyStyles
   },
-  plugins: [typographyPlugin, tailwindCSSAnimate]
+  safelist: [
+    {
+      pattern:
+        /^(bg-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
+      variants: ["hover", "ui-selected"]
+    },
+    {
+      pattern:
+        /^(text-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
+      variants: ["hover", "ui-selected"]
+    },
+    {
+      pattern:
+        /^(border-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
+      variants: ["hover", "ui-selected"]
+    },
+    {
+      pattern:
+        /^(ring-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/
+    },
+    {
+      pattern:
+        /^(stroke-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/
+    },
+    {
+      pattern:
+        /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/
+    }
+  ],
+  plugins: [typographyPlugin, tailwindCSSForms, tailwindCSSAnimate, headlessUI]
 } satisfies Config)
