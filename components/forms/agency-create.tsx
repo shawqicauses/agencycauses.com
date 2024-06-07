@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 5️⃣
+// DONE REVIEWING: GITHUB COMMIT 6️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -11,6 +11,7 @@ import {z} from "zod"
 import FileUploader from "../global/file-uploader"
 import {
   AlertDialog,
+  Button,
   Card,
   CardContent,
   CardDescription,
@@ -18,12 +19,14 @@ import {
   CardTitle,
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
   Input
 } from "../ui"
+import Switch from "../ui/switch"
 
 type AgencyCreateProps = {
   data?: Partial<Agency>
@@ -146,6 +149,101 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                   )}
                 />
               </div>
+              <FormField
+                name="with_label"
+                control={form.control}
+                disabled={isLoading}
+                render={({field}) => (
+                  <FormItem className="flex flex-1 flex-row items-center justify-between gap-4 rounded-lg border p-4">
+                    <div>
+                      <FormLabel>White Label</FormLabel>
+                      <FormDescription>
+                        Turning one white-label mode will show your agency logo to all sub-accounts
+                        by default. You can overwrite this functionality through sub-account
+                        settings.
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch checked={field.value} onCheckedChange={field.onChange} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="country"
+                control={form.control}
+                disabled={isLoading}
+                render={({field}) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Country</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your agency country" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="flex flex-col gap-4 md:flex-row">
+                <FormField
+                  name="state"
+                  control={form.control}
+                  disabled={isLoading}
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>State</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency state" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="city"
+                  control={form.control}
+                  disabled={isLoading}
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>City</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency city" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="zip_code"
+                  control={form.control}
+                  disabled={isLoading}
+                  render={({field}) => (
+                    <FormItem className="flex-1">
+                      <FormLabel>Zip Code</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Your agency zip code" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                name="address"
+                control={form.control}
+                disabled={isLoading}
+                render={({field}) => (
+                  <FormItem className="flex-1">
+                    <FormLabel>Address</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Your agency address" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Creating..." : "Create"}
+              </Button>
             </form>
           </Form>
         </CardContent>
