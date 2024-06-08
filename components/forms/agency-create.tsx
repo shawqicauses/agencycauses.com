@@ -1,18 +1,26 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 7️⃣
+// DONE REVIEWING: GITHUB COMMIT 8️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
+import {AlertDialogCancel} from "@radix-ui/react-alert-dialog"
 import {NumberInput} from "@tremor/react"
 import {useRouter} from "next/navigation"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
+import {toast} from "sonner"
 import {z} from "zod"
-import {createNotificationActivity, updateAgency} from "../../lib/queries"
+import {createNotificationActivity, deleteAgency, updateAgency} from "../../lib/queries"
 import FileUploader from "../global/file-uploader"
 import {
   AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
   Button,
   Card,
   CardContent,
@@ -28,6 +36,7 @@ import {
   FormMessage,
   Input
 } from "../ui"
+import {AlertDialogTrigger} from "../ui/alert-dialog"
 import Switch from "../ui/switch"
 
 type AgencyCreateProps = {
@@ -69,6 +78,21 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
 
   const isLoading = form.formState.isSubmitting
   const handleSubmit = async function handleSubmit() {}
+
+  const handleDeleteAgency = async function handleDeleteAgency() {
+    if (!data?.id) return
+    setIsDeletingAgency(true)
+
+    try {
+      await deleteAgency(data.id)
+      toast("Your agency has been deleted successfully.")
+      router.refresh()
+    } catch (error) {
+      toast("Ops! Could not delete your agency.")
+    }
+
+    setIsDeletingAgency(false)
+  }
 
   useEffect(() => {
     if (data) form.reset(data)
@@ -272,6 +296,38 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
               </Button>
             </form>
           </Form>
+          <div className="mt-4 flex flex-row items-center justify-center gap-4 rounded-lg border border-primary p-4">
+            <div>
+              <div>Danger Zone</div>
+            </div>
+            <div className="text-muted-foreground">
+              Deleting your agency can not be un-done. This will also delete all sub-accounts and
+              all data related to your sub-accounts. Sub accounts will be no longer able to access
+              funnels, contacts, etc.
+            </div>
+          </div>
+          <Button asChild variant="primary" disabled={isLoading || isDeletingAgency}>
+            <AlertDialogTrigger disabled={isLoading || isDeletingAgency}>
+              {isDeletingAgency ? "Deleting..." : "Delete Agency"}
+            </AlertDialogTrigger>
+          </Button>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-left">Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription className="text-left">
+                This action can not be un-done. This will permanently delete your agency and all its
+                related sub-accounts.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel className="mr-4">Cancel</AlertDialogCancel>
+              <Button variant="primary" asChild>
+                <AlertDialogAction disabled={isDeletingAgency} onClick={() => handleDeleteAgency()}>
+                  {isDeletingAgency ? "Deleting..." : "Delete Agency"}
+                </AlertDialogAction>
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
         </CardContent>
       </Card>
     </AlertDialog>
