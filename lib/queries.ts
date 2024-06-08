@@ -1,6 +1,6 @@
 "use server"
 
-// DONE REVIEWING: GITHUB ACTION 3️⃣
+// DONE REVIEWING: GITHUB ACTION 4️⃣
 
 import {clerkClient, currentUser} from "@clerk/nextjs/server"
 import {Agency, User} from "@prisma/client"
@@ -150,5 +150,10 @@ export const updateAgency = async function updateAgency(
   agencyData: Partial<Agency>
 ) {
   const response = await db.agency.update({where: {id: agencyId}, data: {...agencyData}})
+  return response
+}
+
+export const deleteAgency = async function deleteAgency(agencyId: string) {
+  const response = await db.agency.delete({where: {id: agencyId}})
   return response
 }
