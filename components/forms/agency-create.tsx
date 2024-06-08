@@ -1,13 +1,15 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 6️⃣
+// DONE REVIEWING: GITHUB COMMIT 7️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
+import {NumberInput} from "@tremor/react"
 import {useRouter} from "next/navigation"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {z} from "zod"
+import {createNotificationActivity, updateAgency} from "../../lib/queries"
 import FileUploader from "../global/file-uploader"
 import {
   AlertDialog,
@@ -241,8 +243,32 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                   </FormItem>
                 )}
               />
+              <div className="flex flex-col gap-2">
+                <FormLabel>Create a Goal</FormLabel>
+                <FormDescription>
+                  ✨ Create a goal for your agency. As your business grows your goals grow too so do
+                  not forget to set the bar higher!
+                </FormDescription>
+                <NumberInput
+                  defaultValue={data?.goal ?? 0}
+                  min={1}
+                  placeholder="Your agency goal"
+                  className="!border !border-input bg-background hover:bg-background"
+                  onValueChange={async (value) => {
+                    if (!data?.id) return
+                    await updateAgency(data.id, {goal: value})
+                    await createNotificationActivity({
+                      agencyId: data.id,
+                      subAccountId: undefined,
+                      description: `has successfully created a new goal: ${value} sub-accounts.`
+                    })
+
+                    router.refresh()
+                  }}
+                />
+              </div>
               <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create"}
+                {isLoading ? "Saving..." : "Save"}
               </Button>
             </form>
           </Form>

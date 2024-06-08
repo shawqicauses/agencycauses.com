@@ -1,9 +1,9 @@
 "use server"
 
-// DONE REVIEWING: GITHUB ACTION 2️⃣
+// DONE REVIEWING: GITHUB ACTION 3️⃣
 
 import {clerkClient, currentUser} from "@clerk/nextjs/server"
-import {User} from "@prisma/client"
+import {Agency, User} from "@prisma/client"
 import {redirect} from "next/navigation"
 import {db} from "./db"
 
@@ -143,4 +143,12 @@ export const verifyAcceptInvitation = async function verifyAcceptInvitation() {
 
   const agency = await db.user.findUnique({where: {email: user.emailAddresses[0].emailAddress}})
   return agency ? agency.agency_id : null
+}
+
+export const updateAgency = async function updateAgency(
+  agencyId: string,
+  agencyData: Partial<Agency>
+) {
+  const response = await db.agency.update({where: {id: agencyId}, data: {...agencyData}})
+  return response
 }
