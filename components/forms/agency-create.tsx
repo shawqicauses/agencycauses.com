@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 9️⃣
+// DONE REVIEWING: GITHUB COMMIT 1️⃣0️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -12,6 +12,7 @@ import {useForm} from "react-hook-form"
 import {toast} from "sonner"
 import {z} from "zod"
 import {createNotificationActivity, deleteAgency, updateAgency} from "../../lib/queries"
+import {upsertUser} from "../../server/actions/user"
 import FileUploader from "../global/file-uploader"
 import {
   AlertDialog,
@@ -100,6 +101,8 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
           [["line", "1"].join("")]: values.address
         }
       }
+
+      await upsertUser({role: "AGENCY_OWNER"})
     } catch (error) {
       throw new Error("Ops! Could not create your agency.")
     }
