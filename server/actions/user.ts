@@ -1,6 +1,6 @@
 "use server"
 
-// DONE REVIEWING: GITHUB COMMIT
+// DONE REVIEWING: GITHUB COMMIT 1️⃣
 
 import {clerkClient, currentUser} from "@clerk/nextjs/server"
 import {User} from "@prisma/client"
@@ -29,4 +29,4 @@ export const upsertUser = async function upsertUser(user: Partial<User>) {
   })
 }
 
-export default {}
+export default upsertUser
