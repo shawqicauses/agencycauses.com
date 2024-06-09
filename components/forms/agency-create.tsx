@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 1️⃣0️⃣
+// DONE REVIEWING: GITHUB COMMIT 1️⃣1️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -10,8 +10,10 @@ import {useRouter} from "next/navigation"
 import {useEffect, useState} from "react"
 import {useForm} from "react-hook-form"
 import {toast} from "sonner"
+import {v4} from "uuid"
 import {z} from "zod"
 import {createNotificationActivity, deleteAgency, updateAgency} from "../../lib/queries"
+import {upsertAgency} from "../../server/actions/agency"
 import {upsertUser} from "../../server/actions/user"
 import FileUploader from "../global/file-uploader"
 import {
@@ -54,6 +56,7 @@ const AgencyCreateFormSchema = z.object({
   city: z.string().min(1),
   zip_code: z.string().min(1),
   address: z.string().min(1),
+  goal: z.number(),
   with_label: z.boolean()
 })
 
@@ -73,6 +76,7 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
       city: data?.city,
       zip_code: data?.zip_code,
       address: data?.address,
+      goal: data?.goal,
       with_label: data?.with_label
     }
   })
@@ -103,7 +107,32 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
       }
 
       await upsertUser({role: "AGENCY_OWNER"})
+      if (!data?.id) {
+        const date = new Date()
+        await upsertAgency({
+          id: data?.id ? data.id : v4(),
+          customer_id: data?.customer_id || "",
+          connected_account_id: null,
+          logo_url: values.logo_url,
+          name: values.name,
+          email: values.email,
+          phone: values.phone,
+          country: values.country,
+          state: values.state,
+          city: values.city,
+          zip_code: values.zip_code,
+          address: values.address,
+          goal: values.goal,
+          with_label: values.with_label,
+          created_at: date,
+          updated_at: date
+        })
+
+        toast("Your agency has been created successfully.")
+        return router.refresh()
+      }
     } catch (error) {
+      toast("Ops! Could not create your agency.")
       throw new Error("Ops! Could not create your agency.")
     }
   }
@@ -176,12 +205,12 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                 <FormField
                   name="email"
                   control={form.control}
-                  disabled
+                  disabled={isLoading}
                   render={({field}) => (
                     <FormItem className="flex-1">
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your agency email" {...field} readOnly />
+                        <Input placeholder="Your agency email" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -197,7 +226,7 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
                     <FormItem className="flex-1">
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your agency phone number" {...field} readOnly />
+                        <Input placeholder="Your agency phone number" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

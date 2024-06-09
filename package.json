@@ -1,5 +1,5 @@
 {
-  "reviewed": "true 9️⃣",
+  "reviewed": "true 1️⃣0️⃣",
   "version": "1.0.0",
   "name": "agencycauses.com",
   "description": "A SaaS (Software as a Service) web application for agencies to cover dashboard functionalities, project management, and website building (website builder). Built using Next.JS, TypeScript, and Tailwind CSS. Developed by @shawqicauses.",
@@ -31,6 +31,7 @@
     "@trpc/next": "11.0.0-rc.374",
     "@trpc/react-query": "11.0.0-rc.374",
     "@trpc/server": "11.0.0-rc.374",
+    "@types/uuid": "9.0.8",
     "@uploadthing/react": "6.6.0",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
@@ -45,6 +46,7 @@
     "tailwind-merge": "2.3.0",
     "tailwindcss-animate": "1.0.7",
     "uploadthing": "6.12.0",
+    "uuid": "10.0.0",
     "wretch": "2.8.1",
     "zod": "3.23.8"
   },
