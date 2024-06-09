@@ -1,6 +1,6 @@
 "use client"
 
-// DONE REVIEWING: GITHUB COMMIT 8️⃣
+// DONE REVIEWING: GITHUB COMMIT 9️⃣
 
 import {zodResolver} from "@hookform/resolvers/zod"
 import {Agency} from "@prisma/client"
@@ -51,7 +51,7 @@ const AgencyCreateFormSchema = z.object({
   country: z.string().min(1),
   state: z.string().min(1),
   city: z.string().min(1),
-  zip_code: z.number().min(1),
+  zip_code: z.string().min(1),
   address: z.string().min(1),
   with_label: z.boolean()
 })
@@ -77,7 +77,33 @@ const AgencyCreate = function AgencyCreate({data}: AgencyCreateProps) {
   })
 
   const isLoading = form.formState.isSubmitting
-  const handleSubmit = async function handleSubmit() {}
+  const handleSubmit = async function handleSubmit(values: z.infer<typeof AgencyCreateFormSchema>) {
+    try {
+      const body = {
+        name: values.name,
+        email: values.email,
+        shipping: {
+          name: values.name,
+          address: {
+            country: values.country,
+            state: values.state,
+            city: values.city,
+            postal_code: values.zip_code,
+            [["line", "1"].join("")]: values.address
+          }
+        },
+        address: {
+          country: values.country,
+          state: values.state,
+          city: values.city,
+          postal_code: values.zip_code,
+          [["line", "1"].join("")]: values.address
+        }
+      }
+    } catch (error) {
+      throw new Error("Ops! Could not create your agency.")
+    }
+  }
 
   const handleDeleteAgency = async function handleDeleteAgency() {
     if (!data?.id) return
