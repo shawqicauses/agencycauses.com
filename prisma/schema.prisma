@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 9️⃣
+// DONE REVIEWING: GITHUB COMMIT 1️⃣0️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -57,7 +57,7 @@ model Agency {
   country  String
   state    String
   city     String
-  zip_code Int
+  zip_code String
   address  String
 
   goal       Int     @default(5)
@@ -85,7 +85,7 @@ model SubAccount {
   country  String
   state    String
   city     String
-  zip_code Int
+  zip_code String
   address  String
 
   goal            Int                       @default(5)
