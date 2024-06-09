@@ -1,4 +1,4 @@
-// DONE REVIEWING: GITHUB COMMIT 1️⃣0️⃣
+// DONE REVIEWING: GITHUB COMMIT 1️⃣1️⃣
 generator client {
   provider = "prisma-client-js"
 }
@@ -34,7 +34,7 @@ model User {
   role       Role   @default(SUB_ACCOUNT_USER)
 
   agency_id     String
-  agency        Agency         @relation(fields: [agency_id], references: [id], onDelete: Cascade)
+  agency        Agency?        @relation(fields: [agency_id], references: [id], onDelete: Cascade)
   permissions   Permission[]
   notifications Notification[]
 
