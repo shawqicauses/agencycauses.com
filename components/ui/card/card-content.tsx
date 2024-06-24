@@ -1,9 +1,14 @@
+"use client"
+
 // DONE REVIEWING: GITHUB COMMIT
-import {forwardRef, HTMLAttributes} from "react"
+
+import {HTMLAttributes, forwardRef} from "react"
 import {cn} from "../../../lib/utils"
 
 const CardContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
-  ({className, ...props}, ref) => <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+  ({className, ...props}, ref) => (
+    <div ref={ref} className={cn("shc-card-content", className)} {...props} />
+  )
 )
 
 CardContent.displayName = "CardContent"

@@ -1,3 +1,5 @@
+"use client"
+
 // DONE REVIEWING: GITHUB COMMIT
 
 import {HTMLAttributes, forwardRef} from "react"
@@ -11,7 +13,7 @@ const FormDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLPara
       <p
         id={formDescriptionId}
         ref={ref}
-        className={cn("shc-body-inline-base text-muted-foreground", className)}
+        className={cn("shc-description-base text-muted-foreground", className)}
         {...props}
       />
     )

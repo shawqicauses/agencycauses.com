@@ -1,3 +1,5 @@
+"use client"
+
 // DONE REVIEWING: GITHUB COMMIT
 
 import {InputHTMLAttributes, forwardRef} from "react"

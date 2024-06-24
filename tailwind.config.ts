@@ -1,12 +1,20 @@
-// DONE REVIEWING: GITHUB COMMIT 2️⃣
+// DONE REVIEWING: GITHUB COMMIT
+
+/* eslint import/no-extraneous-dependencies: "off" */
 import headlessUI from "@headlessui/tailwindcss"
 import tailwindCSSForms from "@tailwindcss/forms"
 import typographyPlugin from "@tailwindcss/typography"
 import {type Config} from "tailwindcss"
 import tailwindCSSAnimate from "tailwindcss-animate"
 import colors from "tailwindcss/colors"
+import {parseColor} from "tailwindcss/lib/util/color"
+import plugin from "tailwindcss/plugin"
 import {withUt} from "uploadthing/tw"
 import typographyStyles from "./styles/typography"
+
+export const toRGB = function toRGB(value: string): string {
+  return parseColor(value).color.join(" ")
+}
 
 export default withUt({
   darkMode: ["class"],
@@ -81,27 +89,34 @@ export default withUt({
             inverted: colors.gray[950]
           }
         },
-        "background": "var(--background)",
-        "background-layer-2": "var(--background-layer-2)",
-        "foreground": "var(--foreground)",
-        "border": "var(--border)",
-        "border-light": "var(--border-light)",
-        "ring": "var(--ring)",
-        "input": "var(--input)",
+        "background": "rgb(var(--background) / <alpha-value>)",
+        "foreground": "rgb(var(--foreground) / <alpha-value>)",
+        "border": "rgb(var(--border) / <alpha-value>)",
+        "border-light": "rgb(var(--border-light) / <alpha-value>)",
+        "ring": "rgb(var(--ring) / <alpha-value>)",
+        "input": "rgb(var(--input) / <alpha-value>)",
         "primary": {
-          DEFAULT: "var(--primary)",
-          hover: "var(--primary-hover)",
-          foreground: "var(--primary-foreground)"
+          DEFAULT: "rgb(var(--primary) / <alpha-value>)",
+          light: "rgb(var(--primary-light) / <alpha-value>)",
+          dark: "rgb(var(--primary-dark) / <alpha-value>)",
+          foreground: "rgb(var(--primary-foreground) / <alpha-value>)"
         },
         "secondary": {
-          DEFAULT: "var(--secondary)",
-          hover: "var(--secondary-hover)",
-          foreground: "var(--secondary-foreground)"
+          DEFAULT: "rgb(var(--secondary) / <alpha-value>)",
+          light: "rgb(var(--secondary-light) / <alpha-value>)",
+          dark: "rgb(var(--secondary-dark) / <alpha-value>)",
+          foreground: "rgb(var(--secondary-foreground) / <alpha-value>)"
         },
-        "accent": {DEFAULT: "var(--accent)", foreground: "var(--accent-foreground)"},
-        "muted": {DEFAULT: "var(--muted)", foreground: "var(--muted-foreground)"},
-        "card": {DEFAULT: "var(--card)", foreground: "var(--card-foreground)"},
-        "popover": {DEFAULT: "var(--popover)", foreground: "var(--popover-foreground)"}
+        "accent": {
+          DEFAULT: "rgb(var(--accent) / <alpha-value>)",
+          light: "rgb(var(--accent-light) / <alpha-value>)",
+          dark: "rgb(var(--accent-dark) / <alpha-value>)",
+          foreground: "rgb(var(--accent-foreground) / <alpha-value>)"
+        },
+        "muted": {
+          DEFAULT: "rgb(var(--muted) / <alpha-value>)",
+          foreground: "rgb(var(--muted-foreground) / <alpha-value>)"
+        }
       },
       keyframes: {
         "accordion-down": {
@@ -339,5 +354,68 @@ export default withUt({
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/
     }
   ],
-  plugins: [typographyPlugin, tailwindCSSForms, tailwindCSSAnimate, headlessUI]
+  plugins: [
+    typographyPlugin,
+    tailwindCSSAnimate,
+    tailwindCSSForms,
+    headlessUI,
+    plugin(({addBase}) => {
+      addBase({
+        ":root": {
+          "--background": toRGB(colors.white),
+          "--foreground": toRGB(colors.zinc["950"]),
+
+          "--border-light": toRGB(colors.zinc["100"]),
+          "--border": toRGB(colors.zinc["200"]),
+          "--ring": toRGB(colors.zinc["400"]),
+          "--input": toRGB(colors.zinc["200"]),
+
+          "--primary": toRGB(colors.red["500"]),
+          "--primary-light": toRGB(colors.red["400"]),
+          "--primary-dark": toRGB(colors.red["600"]),
+          "--primary-foreground": toRGB(colors.red["50"]),
+
+          "--secondary": toRGB(colors.indigo["500"]),
+          "--secondary-light": toRGB(colors.indigo["400"]),
+          "--secondary-dark": toRGB(colors.indigo["600"]),
+          "--secondary-foreground": toRGB(colors.indigo["50"]),
+
+          "--accent": toRGB(colors.zinc["900"]),
+          "--accent-light": toRGB(colors.zinc["800"]),
+          "--accent-dark": toRGB(colors.zinc["950"]),
+          "--accent-foreground": toRGB(colors.zinc["100"]),
+
+          "--muted": toRGB(colors.zinc["100"]),
+          "--muted-foreground": toRGB(colors.zinc["500"])
+        },
+        ".dark": {
+          "--background": toRGB(colors.zinc["950"]),
+          "--foreground": toRGB(colors.zinc["50"]),
+
+          "--border-light": toRGB(colors.zinc["900"]),
+          "--border": toRGB(colors.zinc["800"]),
+          "--ring": toRGB(colors.zinc["300"]),
+          "--input": toRGB(colors.zinc["800"]),
+
+          "--primary": toRGB(colors.red["400"]),
+          "--primary-light": toRGB(colors.red["300"]),
+          "--primary-dark": toRGB(colors.red["500"]),
+          "--primary-foreground": toRGB(colors.red["950"]),
+
+          "--secondary": toRGB(colors.indigo["400"]),
+          "--secondary-light": toRGB(colors.indigo["300"]),
+          "--secondary-dark": toRGB(colors.indigo["500"]),
+          "--secondary-foreground": toRGB(colors.indigo["950"]),
+
+          "--accent": toRGB(colors.zinc["50"]),
+          "--accent-light": toRGB(colors.white),
+          "--accent-dark": toRGB(colors.zinc["100"]),
+          "--accent-foreground": toRGB(colors.zinc["950"]),
+
+          "--muted": toRGB(colors.zinc["800"]),
+          "--muted-foreground": toRGB(colors.zinc["400"])
+        }
+      })
+    })
+  ]
 } satisfies Config)

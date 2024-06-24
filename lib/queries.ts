@@ -1,6 +1,6 @@
 "use server"
 
-// DONE REVIEWING: GITHUB ACTION 4️⃣
+// DONE REVIEWING: GITHUB ACTION 5️⃣
 
 import {clerkClient, currentUser} from "@clerk/nextjs/server"
 import {Agency, User} from "@prisma/client"
@@ -23,7 +23,8 @@ export const getUser = async function getUser() {
             }
           }
         }
-      }
+      },
+      permissions: true
     }
   })
 

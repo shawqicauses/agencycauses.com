@@ -1,3 +1,5 @@
+"use client"
+
 // DONE REVIEWING: GITHUB COMMIT
 
 import * as LabelPrimitive from "@radix-ui/react-label"
