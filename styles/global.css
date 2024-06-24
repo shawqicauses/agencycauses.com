@@ -1,4 +1,4 @@
-/* DONE REVIEWING: GITHUB COMMIT */
+/* DONE REVIEWING: GITHUB COMMIT 1️⃣ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -202,7 +202,7 @@
   }
 
   .shc-button-accent {
-    @apply bg-accent text-accent-foreground ring-accent hover:bg-accent-dark hover:ring-accent-dark;
+    @apply bg-foreground text-background ring-foreground;
   }
 
   .shc-button-outline {
